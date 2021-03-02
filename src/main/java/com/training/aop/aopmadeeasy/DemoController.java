@@ -2,6 +2,7 @@ package com.training.aop.aopmadeeasy;
 
 import com.training.aop.aopmadeeasy.model.Animal;
 import com.training.aop.aopmadeeasy.model.Mammal;
+import com.training.aop.aopmadeeasy.services.AquariumService;
 import com.training.aop.aopmadeeasy.services.PetStore;
 import com.training.aop.aopmadeeasy.services.ZooService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,15 +15,17 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/animals")
-public class SampleController {
+public class DemoController {
 
     private final ZooService zooService;
     private final PetStore petStore;
+    private final AquariumService aquariumService;
 
     @Autowired
-    public SampleController(ZooService zooService, PetStore petStore) {
+    public DemoController(ZooService zooService, PetStore petStore, AquariumService aquariumService) {
         this.zooService = zooService;
         this.petStore = petStore;
+        this.aquariumService = aquariumService;
     }
 
     @GetMapping
@@ -30,6 +33,7 @@ public class SampleController {
         List<Animal> animals = new ArrayList();
         animals.addAll(zooService.getAnimals());
         animals.addAll(petStore.getAnimals());
+        animals.addAll(aquariumService.getAnimals());
 
         return animals;
     }
@@ -37,6 +41,11 @@ public class SampleController {
     @GetMapping("/zoo")
     public List<Animal> sample() {
         return zooService.getAnimals();
+    }
+
+    @GetMapping("/zoo/filter")
+    public List<Animal> sampleFilter() {
+        return zooService.getAnimals("cats");
     }
 
     @GetMapping("zoo/mammals")

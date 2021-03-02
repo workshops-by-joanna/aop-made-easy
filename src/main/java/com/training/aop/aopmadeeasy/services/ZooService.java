@@ -9,6 +9,7 @@ import java.util.List;
 
 public interface ZooService {
     List<Animal> getAnimals();
+    List<Animal> getAnimals(String filter);
 
     List<Mammal> getMammals();
 

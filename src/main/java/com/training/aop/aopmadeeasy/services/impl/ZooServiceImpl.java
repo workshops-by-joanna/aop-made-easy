@@ -1,6 +1,10 @@
-package com.training.aop.aopmadeeasy.services;
+package com.training.aop.aopmadeeasy.services.impl;
 
 import com.training.aop.aopmadeeasy.model.*;
+import com.training.aop.aopmadeeasy.model.impl.Cat;
+import com.training.aop.aopmadeeasy.model.impl.Cod;
+import com.training.aop.aopmadeeasy.model.impl.Koala;
+import com.training.aop.aopmadeeasy.services.ZooService;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -16,6 +20,13 @@ public class ZooServiceImpl implements ZooService {
         return animals;
     }
 
+    public List<Animal> getAnimals(String filter) {
+        List<Animal> animals = new ArrayList<>();
+        animals.add(new Cod("Filtered Cod"));
+        animals.add(new Cat("Filtered Cat"));
+        return animals;
+    }
+
     public List<Mammal> getMammals() {
         List<Mammal> mammals = new ArrayList<>();
         mammals.add(new Cat());
@@ -26,7 +37,6 @@ public class ZooServiceImpl implements ZooService {
     public List<Fish> getFishes() {
         List<Fish> fishies = new ArrayList<>();
         fishies.add(new Cod());
-        fishies.add(new Cod("Fancy Cod"));
         return fishies;
     }
 }

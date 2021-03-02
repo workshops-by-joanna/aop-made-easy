@@ -1,8 +1,9 @@
-package com.training.aop.aopmadeeasy.services;
+package com.training.aop.aopmadeeasy.services.impl;
 
-import com.training.aop.aopmadeeasy.model.Cat;
-import com.training.aop.aopmadeeasy.model.Koala;
+import com.training.aop.aopmadeeasy.model.impl.Cat;
+import com.training.aop.aopmadeeasy.model.impl.Koala;
 import com.training.aop.aopmadeeasy.model.Mammal;
+import com.training.aop.aopmadeeasy.services.PetStore;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

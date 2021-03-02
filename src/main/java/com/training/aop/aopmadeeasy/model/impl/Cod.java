@@ -1,4 +1,6 @@
-package com.training.aop.aopmadeeasy.model;
+package com.training.aop.aopmadeeasy.model.impl;
+
+import com.training.aop.aopmadeeasy.model.Fish;
 
 public class Cod implements Fish {
 

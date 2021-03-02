@@ -5,7 +5,6 @@ import com.training.aop.aopmadeeasy.model.Mammal;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,8 +14,8 @@ import java.util.List;
 
 @Aspect
 @Component
-public class ReportVerterbratesAspect {
-    private Logger logger = LoggerFactory.getLogger(ReportVerterbratesAspect.class);
+public class DemoAspect {
+    private Logger logger = LoggerFactory.getLogger(DemoAspect.class);
 
     @Pointcut("execution(public java.util.List<com.training.aop.aopmadeeasy.model.Animal> getAnimals())")
     private void getAnimals() {
@@ -26,15 +25,16 @@ public class ReportVerterbratesAspect {
     private void getAnimalsWithSubClass() {
     }
 
-    @Pointcut("within(com.training.aop.aopmadeeasy.model.Fish+)")
-    private void getFishes(){ }
+    @Pointcut("execution(public java.util.List<com.training.aop.aopmadeeasy.model.Animal> getAnimals(*))")
+    private void getAnimalsWithParameter() {
+    }
 
     @AfterReturning(pointcut = "getAnimals()", returning = "retVal")
     public void afterReturningAnimals(final JoinPoint jp, List<Animal> retVal) {
         String sourceMethod = jp.getSignature().getName();
 
         logger.info(String.format("*** Source method: %s", sourceMethod));
-        retVal.forEach(item -> logger.info(String.format("*** I'm a %s and my name is %s",item.getType(), item.getName())));
+        retVal.forEach(item -> logger.info(String.format("*** I'm a %s and my name is %s", item.getType(), item.getName())));
     }
 
     @AfterReturning(pointcut = "getAnimalsWithSubClass()", returning = "retVal")
@@ -42,11 +42,14 @@ public class ReportVerterbratesAspect {
         String sourceMethod = jp.getSignature().getName();
 
         logger.info(String.format("### Source method: %s", sourceMethod));
-        retVal.forEach(item -> logger.info(String.format("### I'm a %s and my name is %s",item.getType(), item.getName())));
+        retVal.forEach(item -> logger.info(String.format("### I'm a %s and my name is %s", item.getType(), item.getName())));
     }
 
-    @Before(value = "getFishes()")
-    public void beforeFishes(final JoinPoint jp) {
-        logger.info("Fish!");
+    @AfterReturning(pointcut = "getAnimalsWithParameter()", returning = "retVal")
+    public void afterReturningAnimalsWithFilter(final JoinPoint jp, List<Animal> retVal) {
+        String sourceMethod = jp.getSignature().getName();
+
+        logger.info(String.format("*#* Source method: %s", sourceMethod));
+        retVal.forEach(item -> logger.info(String.format("*#* I'm a %s and my name is %s", item.getType(), item.getName())));
     }
 }
